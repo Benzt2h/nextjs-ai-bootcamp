@@ -9,10 +9,10 @@ const FeaturesCourse = ({ courses }: Props) => {
   return (
     <div className="flex min-h-screen items-center justify-center px-6 py-20">
       <div className="w-full grow sm:max-w-(--breakpoint-md) lg:max-w-(--breakpoint-lg)">
-        <h2 className="mx-auto text-center font-medium text-4xl tracking-[-0.045em] sm:text-[2.75rem]/[1.2]">
+        <h2 className="mx-auto text-center font-heading font-bold text-[40px] leading-[1.15] tracking-[-0.02em] sm:text-[48px]">
           หลักสูตรทั้งหมด
         </h2>
-        <p className="mt-3 text-pretty text-center text-lg text-muted-foreground tracking-[-0.01em] sm:text-2xl">
+        <p className="mt-3 text-pretty text-center text-lg text-muted-foreground leading-[1.75] sm:text-xl">
           No complex configs. Just copy, paste, and start building
         </p>
         <div className="mt-18 grid w-full gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
@@ -21,7 +21,7 @@ const FeaturesCourse = ({ courses }: Props) => {
               className="flex w-full flex-col text-start"
               key={course.title}
             >
-              <div className="relative mb-5 aspect-4/5 w-full overflow-hidden rounded-xl sm:mb-6">
+              <div className="relative mb-5 aspect-4/5 w-full overflow-hidden sm:mb-6">
                 <Image
                   alt={course.title}
                   className="size-full bg-muted object-cover"
@@ -33,10 +33,10 @@ const FeaturesCourse = ({ courses }: Props) => {
                 />
               </div>
               <div className="px-1">
-                <span className="font-medium text-[22px] tracking-[-0.015em]">
+                <span className="font-heading font-bold text-[22px] leading-[1.3] tracking-[-0.015em]">
                   {course.title}
                 </span>
-                <p className="mt-1 max-w-[25ch] text-[17px] text-muted-foreground">
+                <p className="mt-1 max-w-[25ch] text-base leading-[1.75] text-muted-foreground">
                   {course.detail}
                 </p>
               </div>

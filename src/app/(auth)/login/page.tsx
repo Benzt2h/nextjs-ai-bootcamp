@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { authClient } from "@/lib/auth-client"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { loginSchema, type LoginFormValues } from "@/types/auth"
 
@@ -49,8 +50,8 @@ export default function LoginForm() {
   }
 
   return (
-  <div className="min-h-screen flex items-center justify-center">
-    <Card className="w-full sm:max-w-md">
+  <div className="min-h-screen flex items-center justify-center bg-background px-4">
+    <Card variant="elevated" className="w-full sm:max-w-md">
       <CardHeader>
         <CardTitle>เข้าสู่ระบบ</CardTitle>
         <CardDescription>
@@ -111,9 +112,9 @@ export default function LoginForm() {
         </Button>
         <p className="text-center text-sm text-muted-foreground">
           ยังไม่มีบัญชี?{" "}
-          <a href="/register" className="underline underline-offset-4 hover:text-primary">
+          <Link href="/signup" className="underline underline-offset-4 hover:text-primary transition-colors">
             สมัครสมาชิก
-          </a>
+          </Link>
         </p>
       </CardFooter>
     </Card>

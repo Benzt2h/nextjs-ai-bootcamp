@@ -23,7 +23,7 @@ export default function CartButton({ product }: Props) {
 
   return (
     <>
-        <Button className="mt-6 shadow-none" onClick={handleAddItem}>
+        <Button className="mt-6" onClick={handleAddItem}>
             หยิบใส่ตะกร้า <ChevronRight />
         </Button> 
     </>

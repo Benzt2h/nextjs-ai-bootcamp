@@ -1,18 +1,26 @@
 import type { Metadata } from "next";
-import { Prompt, Roboto, Lora } from "next/font/google";
+import { Manrope, Playfair_Display, Source_Code_Pro } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "../globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
 
-const loraHeading = Lora({subsets:['latin'],variable:'--font-heading'});
-
-const roboto = Roboto({subsets:['latin'],variable:'--font-sans'});
-
-export const promptFont = Prompt({
-  weight: ['400', '500', '700'],
-  subsets: ['thai'],
-  display: 'swap'
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
 });
 
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-heading",
+  display: "swap",
+});
+
+const sourceCodePro = Source_Code_Pro({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "ระบบ ล็อกอิน",
@@ -27,10 +35,13 @@ export default function AuthLayout({
   return (
     <html
       lang="th"
-      className={cn(promptFont.className, "font-sans", roboto.variable, loraHeading.variable)}
+      className={cn(manrope.variable, playfair.variable, sourceCodePro.variable, "font-sans")}
+      suppressHydrationWarning
     >
       <body>
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

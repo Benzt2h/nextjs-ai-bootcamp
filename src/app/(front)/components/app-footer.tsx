@@ -18,14 +18,12 @@ export default function AppFooter() {
   }, [company]);
 
   const handleMouseOver = () => {
-    // console.log('Hi footer', company);
     setCompany('SWU');
   }
     
   return (
-    <div>
-       <hr />
-       <p onMouseOver={handleMouseOver}>{company}</p>
+    <div className="border-t border-border mt-12 py-8 px-6 text-center text-sm text-muted-foreground">
+       <p onMouseOver={handleMouseOver} className="font-bold text-primary cursor-pointer">{company}</p>
        {currentDate}
        <p>codingthailand@gmail.com &copy; { new Date().getFullYear() }</p>
     </div>
