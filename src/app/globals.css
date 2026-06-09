@@ -1,17 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-/* === MagSpread Design System === */
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* Typography - Aether */
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Courier New", monospace;
+  --font-heading: "Inter", system-ui, -apple-system, sans-serif;
+  
+  /* Colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-mono);
-  --font-heading: var(--font-heading);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -41,130 +44,125 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  /* MagSpread: all border radii = 0 */
-  --radius-none: 0px;
-  --radius-sm: 0px;
-  --radius-md: 0px;
-  --radius-lg: 0px;
-  --radius-xl: 0px;
-  --radius-2xl: 0px;
-  --radius-3xl: 0px;
-  --radius-4xl: 0px;
+  
+  /* Radius - Aether spec: 8px for cards/controls, 9999px for pills */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 0.875rem;
+  --radius-2xl: 1rem;
+  --radius-pill: 9999px;
 }
 
+/* Aether Design System - Light Mode */
 :root {
-  /* MagSpread Surface */
-  --background: #FDF2E9;
-  --foreground: #1C1917;
-
-  /* Cards & Popovers */
-  --card: #FFFFFF;
-  --card-foreground: #1C1917;
-  --popover: #FFFFFF;
-  --popover-foreground: #1C1917;
-
-  /* Primary: deep teal */
-  --primary: #134E4A;
-  --primary-foreground: #FFFFFF;
-
-  /* Secondary: rose accent */
-  --secondary: #E11D48;
+  /* Core Colors */
+  --background: #050505;
+  --foreground: #FFFFFF;
+  --card: #F4F4F4;
+  --card-foreground: #050505;
+  --popover: #F4F4F4;
+  --popover-foreground: #050505;
+  
+  /* Primary & Secondary */
+  --primary: #FFFFFF;
+  --primary-foreground: #050505;
+  --secondary: #111111;
   --secondary-foreground: #FFFFFF;
-
-  /* Muted: warm neutral */
-  --muted: #F5F0EB;
-  --muted-foreground: #78716C;
-
-  /* Accent: subtle primary tint */
-  --accent: #134E4A0D;
-  --accent-foreground: #134E4A;
-
-  /* Destructive */
-  --destructive: #DC2626;
-  --destructive-foreground: #FFFFFF;
-
-  /* Borders & Inputs */
-  --border: #E7E5E4;
-  --input: #D6D3D1;
-  --ring: #134E4A;
-
-  /* Charts (muted magspread palette) */
-  --chart-1: #134E4A;
-  --chart-2: #E11D48;
-  --chart-3: #D97706;
-  --chart-4: #16A34A;
-  --chart-5: #2563EB;
-
-  /* Radius: sharp corners everywhere */
-  --radius: 0rem;
-
-  /* Sidebar */
-  --sidebar: #FDF2E9;
-  --sidebar-foreground: #1C1917;
-  --sidebar-primary: #134E4A;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #134E4A0D;
-  --sidebar-accent-foreground: #134E4A;
-  --sidebar-border: #E7E5E4;
-  --sidebar-ring: #134E4A;
-
-  /* MagSpread: zero shadows */
-  --shadow-2xs: 0 0 #0000;
-  --shadow-xs: 0 0 #0000;
-  --shadow-sm: 0 0 #0000;
-  --shadow-md: 0 0 #0000;
-  --shadow-lg: 0 0 #0000;
-  --shadow-xl: 0 0 #0000;
-  --shadow-2xl: 0 0 #0000;
+  
+  /* Semantic Colors */
+  --muted: #A1A1AA;
+  --muted-foreground: #FFFFFF;
+  --accent: #FFFFFF;
+  --accent-foreground: #050505;
+  --destructive: #EF4444;
+  
+  /* Borders & Input */
+  --border: #27272A;
+  --input: #E8E8E8;
+  --ring: #A1A1AA;
+  
+  /* Chart Colors */
+  --chart-1: #FFFFFF;
+  --chart-2: #E8E8E8;
+  --chart-3: #D4D4D4;
+  --chart-4: #A1A1AA;
+  --chart-5: #7A7A7E;
+  
+  /* Spacing & Radius - Aether spec */
+  --radius: 0.5rem;
+  
+  /* Sidebar (optional) */
+  --sidebar: #F4F4F4;
+  --sidebar-foreground: #050505;
+  --sidebar-primary: #FFFFFF;
+  --sidebar-primary-foreground: #050505;
+  --sidebar-accent: #FFFFFF;
+  --sidebar-accent-foreground: #050505;
+  --sidebar-border: #27272A;
+  --sidebar-ring: #A1A1AA;
 }
 
+/* Aether Design System - Dark Mode (same as light - dark theme) */
 .dark {
-  --background: #0F172A;
-  --foreground: #F1F5F9;
-  --card: #1E293B;
-  --card-foreground: #F1F5F9;
-  --popover: #1E293B;
-  --popover-foreground: #F1F5F9;
-  --primary: #2DD4BF;
-  --primary-foreground: #042F2E;
-  --secondary: #FB7185;
-  --secondary-foreground: #1C1917;
-  --muted: #334155;
-  --muted-foreground: #94A3B8;
-  --accent: #2DD4BF14;
-  --accent-foreground: #2DD4BF;
-  --destructive: #F87171;
-  --destructive-foreground: #1C1917;
-  --border: #334155;
-  --input: #475569;
-  --ring: #2DD4BF;
-  --chart-1: #2DD4BF;
-  --chart-2: #FB7185;
-  --chart-3: #FBBF24;
-  --chart-4: #4ADE80;
-  --chart-5: #60A5FA;
-  --sidebar: #0F172A;
-  --sidebar-foreground: #F1F5F9;
-  --sidebar-primary: #2DD4BF;
-  --sidebar-primary-foreground: #042F2E;
-  --sidebar-accent: #2DD4BF14;
-  --sidebar-accent-foreground: #2DD4BF;
-  --sidebar-border: #334155;
-  --sidebar-ring: #2DD4BF;
+  --background: #050505;
+  --foreground: #FFFFFF;
+  --card: #1A1A1A;
+  --card-foreground: #FFFFFF;
+  --popover: #1A1A1A;
+  --popover-foreground: #FFFFFF;
+  --primary: #FFFFFF;
+  --primary-foreground: #050505;
+  --secondary: #F4F4F4;
+  --secondary-foreground: #050505;
+  --muted: #7A7A7E;
+  --muted-foreground: #A1A1AA;
+  --accent: #FFFFFF;
+  --accent-foreground: #050505;
+  --destructive: #EF4444;
+  --border: #27272A;
+  --input: #333333;
+  --ring: #A1A1AA;
+  --chart-1: #FFFFFF;
+  --chart-2: #E8E8E8;
+  --chart-3: #D4D4D4;
+  --chart-4: #A1A1AA;
+  --chart-5: #7A7A7E;
+  --sidebar: #1A1A1A;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #FFFFFF;
+  --sidebar-primary-foreground: #050505;
+  --sidebar-accent: #FFFFFF;
+  --sidebar-accent-foreground: #050505;
+  --sidebar-border: #27272A;
+  --sidebar-ring: #A1A1AA;
 }
 
-/* === MagSpread Typography === */
-body {
-  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  font-size: 18px;
-  line-height: 1.75;
-  color: var(--foreground);
-  background-color: var(--background);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-h1, h2, h3, h4 {
-  font-family: var(--font-heading), ui-serif, Georgia, serif;
-  letter-spacing: -0.02em;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button:not(:disabled), [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  html {
+    @apply font-sans;
+  }
+  
+  /* Typography - Aether */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-medium;
+  }
+  
+  /* Spacing scales */
+  .gap-base {
+    @apply gap-2;
+  }
+  
+  .p-card {
+    @apply p-6;
+  }
 }

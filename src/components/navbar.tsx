@@ -3,25 +3,32 @@ import { Logo } from "@/components/logo";
 import { NavMenu } from "@/components/nav-menu";
 import { NavigationSheet } from "@/components/navigation-sheet";
 import Link from "next/link";
+import { Badge } from "./ui/badge";
 import { ShoppingBasket } from "lucide-react";
 import CountCartItem from "@/app/(front)/components/CountCartItem";
-import { getSession } from "@/services/auth-service";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import LogoutButton from "./logout-button";
-import { ThemeToggle } from "./theme-toggle";
 
 const Navbar = async () => {
-  const session = await getSession();
+  const session = await auth.api.getSession({
+    headers: await headers()
+  });
 
   return (
-    <nav className="h-16 border-b border-border bg-background">
-      <div className="mx-auto flex h-full max-w-(--breakpoint-xl) items-center justify-between px-4 sm:px-6 lg:px-8">
+    <nav className="sticky top-0 z-50 h-16 border-b border-border/30 bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/80">
+      <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Logo />
 
         {/* Desktop Menu */}
         <NavMenu className="hidden md:block" />
 
-        <Link href="/cart" className="flex items-center gap-2 font-bold text-sm uppercase tracking-[0.02em] text-primary hover:text-primary/80 transition-colors">
-          <ShoppingBasket className="size-5" /> <CountCartItem /> ชิ้น
+        <Link href="/cart">
+          <Badge className="p-2 text-sm gap-2 bg-card hover:bg-card/80 border-border/30">
+            <ShoppingBasket className="size-4" />
+            <CountCartItem />
+            <span>ชิ้น</span>
+          </Badge>
         </Link>
 
         <div className="flex items-center gap-3">
@@ -29,10 +36,10 @@ const Navbar = async () => {
           {
             !session && (
               <>
-                <Button asChild className="hidden sm:inline-flex" variant="secondary">
+                <Button asChild className="hidden sm:inline-flex" variant="outline" size="sm">
                   <Link href="/login">เข้าสู่ระบบ</Link>
                 </Button>
-                <Button asChild>
+                <Button asChild size="sm">
                   <Link href="/signup">สมัครสมาชิก</Link>
                 </Button>
               </>
@@ -42,7 +49,7 @@ const Navbar = async () => {
           {
             session && (
               <>
-                <div className="flex items-center mr-4 text-sm">
+                <div className="flex items-center mr-4">
                   สวัสดี, {session.user.name}
                 </div>
                 <div>
@@ -51,8 +58,6 @@ const Navbar = async () => {
               </>
             )
           }
-
-          <ThemeToggle />
 
           {/* Mobile Menu */}
           <div className="md:hidden">

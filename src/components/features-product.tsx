@@ -1,6 +1,14 @@
 import CartButton from "@/app/(front)/components/CartButton";
 import Image from "next/image";
-import type { ProductCardItem } from "@/types/product";
+
+export type ProductCardItem = {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  categoryName: string;
+  imageName: string | null;
+};
 
 type Props = {
   products: ProductCardItem[];
@@ -20,54 +28,70 @@ const priceFormatter = new Intl.NumberFormat("th-TH", {
 
 const FeaturesProduct = ({ products }: Props) => {
   return (
-    <section className="mx-auto flex max-w-7xl flex-col px-6 py-14 sm:py-20">
-      <h2 className="text-pretty text-center font-heading font-bold text-[40px] leading-[1.15] tracking-[-0.02em] sm:text-[48px]">
-        สินค้าทั้งหมด
-      </h2>
+    <section className="mx-auto flex max-w-7xl flex-col px-6 py-16 sm:py-24">
+      <div className="mb-16">
+        <h2 className="text-center font-heading text-5xl md:text-6xl font-medium tracking-tight text-foreground">
+          สินค้าทั้งหมด
+        </h2>
+        <p className="mt-4 text-center text-muted-foreground text-lg max-w-2xl mx-auto">
+          ค้นหาสินค้าที่ตรงตามความต้องการของคุณจากคลังสินค้าขนาดใหญ่
+        </p>
+      </div>
 
       {products.length === 0 ? (
-        <div className="mt-12 border border-dashed border-border px-6 py-12 text-center text-muted-foreground">
-          ยังไม่มีสินค้าในฐานข้อมูล
+        <div className="mt-12 rounded-lg border border-dashed border-border/50 px-6 py-20 text-center text-muted-foreground">
+          <p className="text-base">ยังไม่มีสินค้าในฐานข้อมูล</p>
         </div>
       ) : (
-      <div className="mt-12 grid grid-cols-1 gap-6 sm:mt-16 sm:grid-cols-2 lg:grid-cols-3">
-        {products.map((product) => (
-          <article className="flex border border-border bg-card px-6 py-7 hover:border-primary transition-colors" key={product.id}>
-            <div className="flex w-full flex-col">
-              <div className="relative mb-5 aspect-4/5 w-full overflow-hidden bg-muted sm:mb-6">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {products.map((product) => (
+            <article className="flex flex-col rounded-lg border border-border/50 bg-card hover:shadow-lg transition-shadow overflow-hidden" key={product.id}>
+              {/* Product Image */}
+              <div className="relative aspect-square w-full overflow-hidden bg-muted">
                 <Image
                   alt={product.name}
-                  className="object-cover"
+                  className="object-cover hover:scale-105 transition-transform duration-300"
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   src={getProductImage(product)}
                 />
               </div>
 
-              <div className="flex items-center justify-between gap-4">
-                <span className="bg-primary/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[1px] text-primary">
-                  #{product.id}
-                </span>
-                <span className="text-xs font-medium uppercase tracking-[0.05em] text-muted-foreground">
-                  {product.categoryName}
-                </span>
+              {/* Product Info */}
+              <div className="flex flex-col gap-4 p-6">
+                {/* Category & ID */}
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs font-mono text-muted-foreground">#{product.id}</span>
+                  <span className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary font-medium">
+                    {product.categoryName}
+                  </span>
+                </div>
+
+                {/* Product Name */}
+                <div>
+                  <h3 className="font-heading font-medium text-lg line-clamp-2 text-foreground">
+                    {product.name}
+                  </h3>
+                </div>
+
+                {/* Description */}
+                <p className="line-clamp-2 text-sm text-muted-foreground min-h-10">
+                  {product.description}
+                </p>
+
+                {/* Price */}
+                <p className="text-2xl font-bold font-heading text-foreground pt-2">
+                  {priceFormatter.format(product.price)}
+                </p>
+
+                {/* Cart Button */}
+                <div className="mt-auto pt-2">
+                  <CartButton product={product} />
+                </div>
               </div>
-              <h3 className="mt-5 font-heading font-bold text-[22px] leading-[1.3] tracking-[-0.005em]">
-                {product.name}
-              </h3>
-              <p className="mt-2 line-clamp-2 min-h-12 text-base leading-[1.75] text-foreground/70">
-                {product.description}
-              </p>
-              <p className="mt-4 font-heading text-xl font-bold">
-                {priceFormatter.format(product.price)}
-              </p>
-              <div className="mt-auto">
-                <CartButton product={product} />
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
+            </article>
+          ))}
+        </div>
       )}
     </section>
   );

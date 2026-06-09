@@ -7,24 +7,30 @@ type Props = {
 
 const FeaturesCourse = ({ courses }: Props) => {
   return (
-    <div className="flex min-h-screen items-center justify-center px-6 py-20">
-      <div className="w-full grow sm:max-w-(--breakpoint-md) lg:max-w-(--breakpoint-lg)">
-        <h2 className="mx-auto text-center font-heading font-bold text-[40px] leading-[1.15] tracking-[-0.02em] sm:text-[48px]">
-          หลักสูตรทั้งหมด
-        </h2>
-        <p className="mt-3 text-pretty text-center text-lg text-muted-foreground leading-[1.75] sm:text-xl">
-          No complex configs. Just copy, paste, and start building
-        </p>
-        <div className="mt-18 grid w-full gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+    <section className="w-full px-6 py-16 sm:py-24">
+      <div className="mx-auto max-w-7xl">
+        {/* Header */}
+        <div className="mb-16">
+          <h2 className="mx-auto text-center font-heading text-5xl md:text-6xl font-medium tracking-tight text-foreground">
+            หลักสูตรทั้งหมด
+          </h2>
+          <p className="mt-4 text-center text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+            ค้นหาหลักสูตรที่เหมาะสมสำหรับการพัฒนาทักษะของคุณ
+          </p>
+        </div>
+
+        {/* Courses Grid */}
+        <div className="grid w-full gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {courses.map((course) => (
-            <div
-              className="flex w-full flex-col text-start"
+            <article
+              className="group flex flex-col text-start rounded-lg border border-border/50 bg-card hover:shadow-lg transition-all overflow-hidden"
               key={course.title}
             >
-              <div className="relative mb-5 aspect-4/5 w-full overflow-hidden sm:mb-6">
+              {/* Image */}
+              <div className="relative w-full aspect-video overflow-hidden bg-muted">
                 <Image
                   alt={course.title}
-                  className="size-full bg-muted object-cover"
+                  className="size-full object-cover group-hover:scale-105 transition-transform duration-300"
                   width={0}
                   height={0}
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -32,19 +38,21 @@ const FeaturesCourse = ({ courses }: Props) => {
                   loading="eager"
                 />
               </div>
-              <div className="px-1">
-                <span className="font-heading font-bold text-[22px] leading-[1.3] tracking-[-0.015em]">
+
+              {/* Content */}
+              <div className="p-6 flex flex-col gap-3 flex-1">
+                <h3 className="font-heading font-medium text-xl text-foreground line-clamp-2">
                   {course.title}
-                </span>
-                <p className="mt-1 max-w-[25ch] text-base leading-[1.75] text-muted-foreground">
+                </h3>
+                <p className="text-muted-foreground text-sm line-clamp-3">
                   {course.detail}
                 </p>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
