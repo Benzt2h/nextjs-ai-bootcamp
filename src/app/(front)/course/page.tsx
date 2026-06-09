@@ -1,5 +1,5 @@
 import FeaturesCourse from "@/components/features-course";
-import { getCourses } from "@/services/course.service";
+import { getCourses } from "@/services/course-service";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

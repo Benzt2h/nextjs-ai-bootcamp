@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
-import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -22,19 +21,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { authClient } from "@/lib/auth-client"
 import { useRouter } from "next/navigation"
-
-const loginSchema = z.object({
-  email: z
-    .string()
-    .min(1, "กรุณากรอกอีเมล")
-    .email("รูปแบบอีเมลไม่ถูกต้อง"),
-  password: z
-    .string()
-    .min(1, "กรุณากรอกรหัสผ่าน")
-    .min(8, "รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร"),
-})
-
-type LoginFormValues = z.infer<typeof loginSchema>
+import { loginSchema, type LoginFormValues } from "@/types/auth"
 
 export default function LoginForm() {
   const router = useRouter();

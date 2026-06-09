@@ -6,14 +6,11 @@ import Link from "next/link";
 import { Badge } from "./ui/badge";
 import { ShoppingBasket } from "lucide-react";
 import CountCartItem from "@/app/(front)/components/CountCartItem";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import { getSession } from "@/services/auth-service";
 import LogoutButton from "./logout-button";
 
 const Navbar = async () => {
-  const session = await auth.api.getSession({
-    headers: await headers()
-  });
+  const session = await getSession();
 
   return (
     <nav className="h-16 border-b bg-background">
