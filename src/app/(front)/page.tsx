@@ -1,10 +1,7 @@
-import Hero from "@/components/hero";
-
-// http://localhost:3000/
 export default function Home() {
   return (
-    <div>
-     <Hero />
+    <div className="flex min-h-screen items-center justify-center">
+      <h1 className="text-4xl font-bold">Welcome</h1>
     </div>
   );
 }

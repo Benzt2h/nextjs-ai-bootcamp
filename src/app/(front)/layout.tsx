@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import "../globals.css";
 import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "sonner";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -42,6 +43,7 @@ export default function RootLayout({
           <Navbar />
           </Suspense>
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

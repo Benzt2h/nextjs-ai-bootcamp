@@ -74,9 +74,9 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 ## Commands
 
-- `bun run dev` — start dev server
-- `bun run build` — production build (run `npx prisma generate` first if `generated/` is missing)
-- `bun run lint` — ESLint v9 flat config (Next.js core-web-vitals + TypeScript)
+- `npm run dev` — start dev server
+- `npm run build` — production build (run `npx prisma generate` first if `generated/` is missing)
+- `npm run lint` — ESLint v9 flat config (Next.js core-web-vitals + TypeScript)
 
 No test, format, or typecheck scripts. No CI/CD.
 
@@ -138,5 +138,4 @@ Each route group has its own `<html>`/`<body>` — **no shared root layout**. Do
 ## Coding policy
 
 - Create file name use '-' like 'auth-client.ts' not use '.'
-- Not use 'npx prisma db push'
-- Use 'bun' over 'node'
+- can use 'npx prisma db push' but ask user to use always
