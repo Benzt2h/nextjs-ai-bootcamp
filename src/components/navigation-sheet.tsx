@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
 import { NavMenu } from "@/components/nav-menu";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export const NavigationSheet = () => {
   return (
@@ -25,7 +26,10 @@ export const NavigationSheet = () => {
         </Button>
       </SheetTrigger>
       <SheetContent className="px-6 py-3">
-        <Logo />
+        <div className="flex items-center justify-between">
+          <Logo />
+          <ThemeToggle />
+        </div>
         <NavMenu className="mt-6 [&>div]:h-full" orientation="vertical" />
       </SheetContent>
     </Sheet>
