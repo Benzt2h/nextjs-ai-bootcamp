@@ -93,8 +93,9 @@ No test, format, or typecheck scripts. No CI/CD.
 ### Route groups
 - `src/app/(front)/` — main site: `/`, `/about`, `/course`, `/product`, `/cart`
 - `src/app/(auth)/` — `/login`, `/signup`
+- `src/app/(admin)/` — `/dashboard`, `/dashboard/products`
 
-Each route group has its own `<html>`/`<body>` — **no shared root layout**. Do not add a root `layout.tsx` without restructuring both groups.
+Each route group has its own `<html>`/`<body>` — **no shared root layout**. Do not add a root `layout.tsx` without restructuring all groups.
 
 ### Path alias
 `@/*` → `./src/*` (standard Next.js)
@@ -116,6 +117,18 @@ Each route group has its own `<html>`/`<body>` — **no shared root layout**. Do
 - **Server:** `src/lib/auth.ts` — email+password enabled, no email verification, min 8-char password
 - **Client:** `src/lib/auth-client.ts` — for client components
 - Uses Prisma adapter with MySQL provider
+- Login redirect: admin users → `/dashboard`, regular users → `/` (in `login/page.tsx:42-48`)
+
+## Admin
+
+- **Layout shell:** `src/app/(admin)/layout.tsx` wraps children in `<AdminShell>` (`src/components/admin/admin-shell.tsx`)
+- **AdminShell** provides a sticky top bar (hamburger + "Admin" link + logout) and a left-sheet sidebar with nav links. Add new admin pages to the `navItems` array in `admin-shell.tsx`
+- **Auth guard — pages:** each server page (`page.tsx`) calls `auth.api.getSession()` + role check, redirects to `/login` on failure
+- **Auth guard — API routes:** each handler checks session + role, returns `401` JSON on failure. Every handler needs this — no middleware exists
+- **API response type:** `ApiResponse<T>` (`src/types/admin.ts`) — discriminated union `{ success, data } | { success, error }`. Use `satisfies ApiResponse<never>` on error responses
+- **Product CRUD:** `/dashboard/products` — list + debounced search + pagination, create/edit via Dialog form, delete with confirmation dialog. API at `/api/admin/products` (GET/POST) and `/api/admin/products/[id]` (PUT/DELETE). Categories at `/api/admin/categories` (GET)
+- **Prisma Decimal:** serialize with `Number(product.price)` before returning. Prisma `string | null` fields need `!` assertions when the column is non-nullable (`p.name!`, `p.categories!.name!`)
+- **404 on missing:** PUT/DELETE check `findUnique` first, return 404 if not found (not generic 500)
 
 ## Cart
 
@@ -131,9 +144,11 @@ Each route group has its own `<html>`/`<body>` — **no shared root layout**. Do
 
 - UI labels are in **Thai**
 - `cn()` helper in `src/lib/utils.ts` (clsx + tailwind-merge) for class merging
+- `formatCurrency()` in `src/lib/utils.ts` — Thai Baht formatting via `Intl.NumberFormat`
 - Course data fetched from `https://api.codingthailand.com/api/course` with 60s ISR revalidate
 - Remote image domains allowed: `www.fffuel.co`, `api.codingthailand.com`
 - No tests, no CI, no formatting config exists
+- TypeScript guidelines: see `docs/typescript-guidelines.md`
 
 ### Coding policy
 
@@ -143,3 +158,27 @@ Each route group has its own `<html>`/`<body>` — **no shared root layout**. Do
 ### Startup 
 
 - Use skill 'pordee' when user prompt with thai lang
+
+## UI Components
+
+Pre-built components in `src/components/ui/`:
+- `Button`, `Input`, `Textarea`, `Label`, `Badge`, `Card`, `Separator`, `Spinner`
+- `Form`/`FormField`/`FormControl`/`FormLabel`/`FormMessage` — react-hook-form integration
+- `Field`/`FieldLabel`/`FieldError`/`FieldGroup` — alternative form pattern (used in login/signup)
+- `Table`, `Sheet`, `NavigationMenu`
+- `Dialog` (centered modal, mirrors Sheet API)
+- `SelectNative` — styled native `<select>`
+
+Admin components in `src/components/admin/`:
+- `admin-shell.tsx` — layout shell with hamburger sidebar
+- `kpi-card.tsx`, `period-selector.tsx`, `recent-orders-table.tsx`, `revenue-chart.tsx`
+
+Icons: `@remixicon/react` (`Ri*` prefix) is primary. `lucide-react` also available.
+
+## Known Issues
+
+### `z.coerce` + `@hookform/resolvers` type mismatch
+Zod v4 `z.coerce.number()` creates `input: unknown` / `output: number` types that break the resolver's generic inference. **Fix:** use separate schemas — `productSchema` (plain `z.number()`) for the client form, `productApiSchema` (with `z.coerce.number()`) for server route validation.
+
+### `react-hooks/set-state-in-effect` ESLint disable quirk
+The `eslint-disable-next-line` directive does not suppress this rule. Use block-level `/* eslint-disable react-hooks/set-state-in-effect */` around the entire `useEffect` block instead.
