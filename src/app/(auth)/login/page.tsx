@@ -39,9 +39,13 @@ export default function LoginForm() {
           email: data.email,
           password: data.password,
          }, {
-            onSuccess: () => {
-              alert('เข้าระบบสำเร็จ');
-              router.replace('/');
+            onSuccess: (ctx) => {
+              const user = (ctx.data as Record<string, unknown>)?.user as Record<string, unknown> | undefined
+              if (user?.role === 'admin') {
+                router.replace('/dashboard');
+              } else {
+                router.replace('/');
+              }
             },
             onError: (ctx) => {
               alert(JSON.stringify(ctx.error));

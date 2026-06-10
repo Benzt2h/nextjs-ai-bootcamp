@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils"
 import "../globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "sonner"
+import { AdminShell } from "@/components/admin/admin-shell"
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -41,7 +42,9 @@ export default function AdminLayout({
     >
       <body>
         <ThemeProvider>
-          {children}
+          <AdminShell>
+            {children}
+          </AdminShell>
           <Toaster />
         </ThemeProvider>
       </body>

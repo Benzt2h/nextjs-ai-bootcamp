@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback, useRef } from "react"
 import dynamic from "next/dynamic"
 import { RefreshCw } from "lucide-react"
-import LogoutButton from "@/components/logout-button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { KpiCard, KpiCardSkeleton } from "@/components/admin/kpi-card"
 import { PeriodSelector } from "@/components/admin/period-selector"
@@ -117,12 +116,9 @@ export function DashboardClient() {
 
   return (
     <div className="mx-auto max-w-7xl space-y-8 p-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">แดชบอร์ด</h1>
-          <p className="text-muted-foreground">ภาพรวมของร้านค้าวันนี้</p>
-        </div>
-        <LogoutButton />
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight">แดชบอร์ด</h1>
+        <p className="text-muted-foreground">ภาพรวมของร้านค้าวันนี้</p>
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
