@@ -135,7 +135,11 @@ Each route group has its own `<html>`/`<body>` — **no shared root layout**. Do
 - Remote image domains allowed: `www.fffuel.co`, `api.codingthailand.com`
 - No tests, no CI, no formatting config exists
 
-## Coding policy
+### Coding policy
 
 - Create file name use '-' like 'auth-client.ts' not use '.'
 - can use 'npx prisma db push' but ask user to use always
+
+### Startup 
+
+- Use skill 'pordee' when user prompt with thai lang
