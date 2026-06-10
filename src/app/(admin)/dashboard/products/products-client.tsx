@@ -179,6 +179,7 @@ export function ProductsClient() {
                             variant="ghost"
                             size="icon-sm"
                             onClick={() => handleEdit(p)}
+                            aria-label="แก้ไข"
                           >
                             <RiPencilLine className="size-4" />
                           </Button>
@@ -186,6 +187,7 @@ export function ProductsClient() {
                             variant="ghost"
                             size="icon-sm"
                             onClick={() => setDeleteTarget(p)}
+                            aria-label="ลบ"
                           >
                             <RiDeleteBinLine className="size-4 text-destructive" />
                           </Button>

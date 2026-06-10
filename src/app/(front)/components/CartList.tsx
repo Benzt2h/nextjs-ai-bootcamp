@@ -1,13 +1,23 @@
 "use client"
 
+import { useState } from "react"
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog"
 import { useCartStore } from "@/lib/cart-store";
-import { Trash } from "lucide-react";
+import { RiDeleteBinLine } from "@remixicon/react";
 import { useRouter } from "next/navigation";
 
 export default function CartList() {
   const router = useRouter();
+  const [showConfirm, setShowConfirm] = useState(false)
 
   const items = useCartStore((state) => state.items);
   const removeItem = useCartStore((state) => state.removeItem);
@@ -20,6 +30,12 @@ export default function CartList() {
         <p className="text-muted-foreground text-lg">ตะกร้าสินค้าว่างเปล่า...</p>
       </div>
     );
+  }
+
+  function handleConfirmOrder() {
+    clearCart()
+    setShowConfirm(false)
+    router.replace('/product')
   }
 
   return (
@@ -51,8 +67,9 @@ export default function CartList() {
                     variant="destructive" 
                     size="sm"
                     onClick={() => removeItem(i.productId)}
+                    aria-label="ลบออกจากตะกร้า"
                   >
-                    <Trash className="size-4" />
+                    <RiDeleteBinLine className="size-4" />
                   </Button>
                 </TableCell>
               </TableRow>
@@ -77,16 +94,30 @@ export default function CartList() {
           >
             ลบสินค้าทั้งหมด
           </Button>
-          <Button 
-            onClick={() => {
-              clearCart();
-              router.replace('/product');
-            }}
-          >
+          <Button onClick={() => setShowConfirm(true)}>
             ยืนยันการสั่งซื้อ
           </Button>
         </div>
       </div>
+
+      <Dialog open={showConfirm} onOpenChange={setShowConfirm}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>ยืนยันการสั่งซื้อ</DialogTitle>
+            <DialogDescription>
+              คุณต้องการยืนยันการสั่งซื้อสินค้าทั้งหมดในตะกร้าใช่หรือไม่? ตะกร้าจะถูกล้างหลังจากยืนยัน
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowConfirm(false)}>
+              ยกเลิก
+            </Button>
+            <Button onClick={handleConfirmOrder}>
+              ยืนยัน
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

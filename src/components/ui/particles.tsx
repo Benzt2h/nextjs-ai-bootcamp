@@ -85,7 +85,12 @@ const Particles: React.FC<ParticlesProps> = ({
       context.current = canvasRef.current.getContext("2d");
     }
     initCanvas();
-    animate();
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    if (!prefersReducedMotion) {
+      animate();
+    }
+
     window.addEventListener("resize", initCanvas);
 
     return () => {

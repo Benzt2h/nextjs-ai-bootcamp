@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import type { ProductCardItem } from "@/types/product";
 import { useCartStore } from "@/lib/cart-store";
-import { ChevronRight } from "lucide-react";
+import { RiArrowRightLine } from "@remixicon/react";
 
 type Props = {
   product: ProductCardItem;
@@ -24,7 +24,7 @@ export default function CartButton({ product }: Props) {
   return (
     <>
         <Button className="mt-6" onClick={handleAddItem}>
-            หยิบใส่ตะกร้า <ChevronRight />
+            หยิบใส่ตะกร้า <RiArrowRightLine />
         </Button> 
     </>
   );

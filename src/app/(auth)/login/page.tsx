@@ -1,7 +1,9 @@
 "use client"
 
+import { useTransition } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -19,13 +21,15 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { Spinner } from "@/components/ui/spinner"
 import { authClient } from "@/lib/auth-client"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { loginSchema, type LoginFormValues } from "@/types/auth"
 
 export default function LoginForm() {
-  const router = useRouter();
+  const router = useRouter()
+  const [isPending, startTransition] = useTransition()
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -34,23 +38,25 @@ export default function LoginForm() {
     },
   })
 
-  async function onSubmit(data: LoginFormValues) {
-        await authClient.signIn.email({
-          email: data.email,
-          password: data.password,
-         }, {
-            onSuccess: (ctx) => {
-              const user = (ctx.data as Record<string, unknown>)?.user as Record<string, unknown> | undefined
-              if (user?.role === 'admin') {
-                router.replace('/dashboard');
-              } else {
-                router.replace('/');
-              }
-            },
-            onError: (ctx) => {
-              alert(JSON.stringify(ctx.error));
-            }
-         });
+  function onSubmit(data: LoginFormValues) {
+    startTransition(async () => {
+      await authClient.signIn.email({
+        email: data.email,
+        password: data.password,
+      }, {
+        onSuccess: (ctx) => {
+          const user = (ctx.data as Record<string, unknown>)?.user as Record<string, unknown> | undefined
+          if (user?.role === 'admin') {
+            router.replace('/dashboard')
+          } else {
+            router.replace('/')
+          }
+        },
+        onError: (ctx) => {
+          toast.error(ctx.error?.message ?? "เกิดข้อผิดพลาด")
+        }
+      })
+    })
   }
 
   return (
@@ -111,8 +117,9 @@ export default function LoginForm() {
         </form>
       </CardContent>
       <CardFooter className="flex flex-col gap-3">
-        <Button type="submit" form="form-login" className="w-full">
-          เข้าสู่ระบบ
+        <Button type="submit" form="form-login" className="w-full" disabled={isPending}>
+          {isPending && <Spinner className="mr-1.5" />}
+          {isPending ? "กำลังเข้าสู่ระบบ..." : "เข้าสู่ระบบ"}
         </Button>
         <p className="text-center text-sm text-muted-foreground">
           ยังไม่มีบัญชี?{" "}

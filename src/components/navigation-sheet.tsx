@@ -1,17 +1,17 @@
 'use client'
 
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { Menu } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden"
+import { RiMenuLine } from "@remixicon/react"
+import { Button } from "@/components/ui/button"
 import {
   Sheet,
   SheetContent,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import { Logo } from "@/components/logo";
-import { NavMenu } from "@/components/nav-menu";
-import { ThemeToggle } from "@/components/theme-toggle";
+} from "@/components/ui/sheet"
+import { Logo } from "@/components/logo"
+import { NavMenu } from "@/components/nav-menu"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export const NavigationSheet = () => {
   return (
@@ -21,8 +21,8 @@ export const NavigationSheet = () => {
       </VisuallyHidden>
 
       <SheetTrigger asChild>
-        <Button size="icon" variant="secondary">
-          <Menu />
+        <Button size="icon" variant="secondary" aria-label="เปิดเมนู">
+          <RiMenuLine />
         </Button>
       </SheetTrigger>
       <SheetContent className="px-6 py-3">

@@ -4,7 +4,7 @@ import { NavMenu } from "@/components/nav-menu";
 import { NavigationSheet } from "@/components/navigation-sheet";
 import Link from "next/link";
 import { Badge } from "./ui/badge";
-import { ShoppingBasket } from "lucide-react";
+import { RiShoppingBasketLine } from "@remixicon/react";
 import CountCartItem from "@/app/(front)/components/CountCartItem";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
@@ -26,7 +26,7 @@ const Navbar = async () => {
 
         <Link href="/cart">
           <Badge className="p-2 text-sm gap-2 bg-card hover:bg-card/80 border-border/30">
-            <ShoppingBasket className="size-4" />
+            <RiShoppingBasketLine className="size-4" />
             <CountCartItem />
             <span>ชิ้น</span>
           </Badge>

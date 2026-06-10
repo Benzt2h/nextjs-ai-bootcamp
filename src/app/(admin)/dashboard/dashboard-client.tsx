@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react"
 import dynamic from "next/dynamic"
-import { RefreshCw } from "lucide-react"
+import { RiRefreshLine } from "@remixicon/react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { KpiCard, KpiCardSkeleton } from "@/components/admin/kpi-card"
 import { PeriodSelector } from "@/components/admin/period-selector"
@@ -138,7 +138,7 @@ export function DashboardClient() {
               onClick={fetchStats}
               className="inline-flex items-center gap-1 rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground"
             >
-              <RefreshCw className="size-3" />
+              <RiRefreshLine className="size-3" />
               ลองใหม่
             </button>
           </div>
@@ -191,7 +191,7 @@ export function DashboardClient() {
                 onClick={() => fetchRevenue(period)}
                 className="inline-flex items-center gap-1 rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground"
               >
-                <RefreshCw className="size-3" />
+                <RiRefreshLine className="size-3" />
                 ลองใหม่
               </button>
             </div>
@@ -214,7 +214,7 @@ export function DashboardClient() {
                 onClick={fetchOrders}
                 className="inline-flex items-center gap-1 rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground"
               >
-                <RefreshCw className="size-3" />
+                <RiRefreshLine className="size-3" />
                 ลองใหม่
               </button>
             )}

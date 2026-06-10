@@ -4,7 +4,7 @@ import { useState, useTransition } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
-import { CheckCircle } from "lucide-react"
+import { RiCheckboxCircleLine } from "@remixicon/react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -57,7 +57,7 @@ export default function ContactForm() {
   if (isSuccess) {
     return (
       <div className="flex flex-col items-center text-center gap-4 py-8">
-        <CheckCircle className="size-12 text-green-500" />
+        <RiCheckboxCircleLine className="size-12 text-green-500" />
         <h3 className="text-lg font-semibold">ส่งข้อความสำเร็จ</h3>
         <p className="text-muted-foreground">
           ขอบคุณที่ติดต่อมา เราจะตอบกลับโดยเร็วที่สุด

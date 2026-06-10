@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Mail, Phone, Clock } from "lucide-react"
+import { RiMailLine, RiPhoneLine, RiTimeLine } from "@remixicon/react"
 import { Separator } from "@/components/ui/separator"
 import ContactForm from "./contact-form"
 
@@ -25,7 +25,7 @@ export default function ContactPage() {
           {/* Contact Info */}
           <div className="flex flex-col gap-5">
             <div className="flex items-start gap-3">
-              <Mail className="mt-0.5 size-5 shrink-0 text-muted-foreground" />
+              <RiMailLine className="mt-0.5 size-5 shrink-0 text-muted-foreground" />
               <div>
                 <p className="text-sm font-medium">Email</p>
                 <p className="text-sm text-muted-foreground">
@@ -35,7 +35,7 @@ export default function ContactPage() {
             </div>
 
             <div className="flex items-start gap-3">
-              <Phone className="mt-0.5 size-5 shrink-0 text-muted-foreground" />
+              <RiPhoneLine className="mt-0.5 size-5 shrink-0 text-muted-foreground" />
               <div>
                 <p className="text-sm font-medium">เบอร์โทร</p>
                 <p className="text-sm text-muted-foreground">
@@ -45,7 +45,7 @@ export default function ContactPage() {
             </div>
 
             <div className="flex items-start gap-3">
-              <Clock className="mt-0.5 size-5 shrink-0 text-muted-foreground" />
+              <RiTimeLine className="mt-0.5 size-5 shrink-0 text-muted-foreground" />
               <div>
                 <p className="text-sm font-medium">เวลาทำการ</p>
                 <p className="text-sm text-muted-foreground">

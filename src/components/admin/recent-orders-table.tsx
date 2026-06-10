@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowUpRight } from "lucide-react"
+import { RiExternalLinkLine } from "@remixicon/react"
 import {
   Table,
   TableBody,
@@ -69,8 +69,8 @@ export function RecentOrdersTable({ orders }: { orders: AdminOrderItem[] }) {
               {formatDate(order.date)}
             </TableCell>
             <TableCell>
-              <button type="button" className="text-muted-foreground hover:text-foreground">
-                <ArrowUpRight className="size-4" />
+              <button type="button" className="text-muted-foreground hover:text-foreground" aria-label="ดูรายละเอียด">
+                <RiExternalLinkLine className="size-4" />
               </button>
             </TableCell>
           </TableRow>

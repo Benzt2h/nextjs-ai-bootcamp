@@ -1,7 +1,9 @@
 "use client"
 
+import { useTransition } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -19,13 +21,15 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { Spinner } from "@/components/ui/spinner"
 import { authClient } from "@/lib/auth-client"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { registerSchema, type RegisterFormValues } from "@/types/auth"
 
 export default function RegisterForm() {
-  const router = useRouter();
+  const router = useRouter()
+  const [isPending, startTransition] = useTransition()
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -36,20 +40,22 @@ export default function RegisterForm() {
     },
   })
 
-  async function onSubmit(data: RegisterFormValues) {
-     await authClient.signUp.email({
-      name: data.name,
-      email: data.email,
-      password: data.password,
-     }, {
+  function onSubmit(data: RegisterFormValues) {
+    startTransition(async () => {
+      await authClient.signUp.email({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      }, {
         onSuccess: () => {
-          alert('สมัครสมาชิกสำเร็จ');
-          router.replace('/login');
+          toast.success("สมัครสมาชิกสำเร็จ")
+          router.replace('/login')
         },
         onError: (ctx) => {
-          alert(JSON.stringify(ctx.error));
+          toast.error(ctx.error?.message ?? "เกิดข้อผิดพลาด")
         }
-     });
+      })
+    })
   }
 
   return (
@@ -152,8 +158,9 @@ export default function RegisterForm() {
         </form>
       </CardContent>
       <CardFooter className="flex flex-col gap-3">
-        <Button type="submit" form="form-register" className="w-full">
-          สมัครสมาชิก
+        <Button type="submit" form="form-register" className="w-full" disabled={isPending}>
+          {isPending && <Spinner className="mr-1.5" />}
+          {isPending ? "กำลังสมัครสมาชิก..." : "สมัครสมาชิก"}
         </Button>
         <p className="text-center text-sm text-muted-foreground">
           มีบัญชีอยู่แล้ว?{" "}
