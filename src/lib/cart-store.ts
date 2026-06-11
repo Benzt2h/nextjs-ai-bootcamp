@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { toast } from 'sonner'
 import type { CartItem, CartStore } from "@/types/cart"
 
 export const useCartStore = create<CartStore>()(
@@ -19,6 +20,12 @@ export const useCartStore = create<CartStore>()(
         } else {
           set({ items: [...get().items, item] })
         }
+        if (typeof window !== "undefined") {
+          toast.success("เพิ่ມเข้าตะกร้าแลว", {
+            description: item.name,
+            duration: 2000,
+          })
+        }
       },
       removeItem: (productId) =>
         set({
@@ -31,7 +38,7 @@ export const useCartStore = create<CartStore>()(
         get().items.reduce((total, item) => total + item.qty * item.price, 0),
     }),
     {
-      name: 'skill-cart', // key ที่ใช้ใน localStorage
+      name: 'skill-cart',
     }
   )
 )
