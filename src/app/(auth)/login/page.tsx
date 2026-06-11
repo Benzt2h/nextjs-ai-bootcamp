@@ -61,7 +61,7 @@ export default function LoginForm() {
 
   return (
   <div className="min-h-screen flex items-center justify-center bg-background px-4">
-    <Card variant="elevated" className="w-full sm:max-w-md">
+    <Card className="w-full sm:max-w-md">
       <CardHeader>
         <CardTitle>เข้าสู่ระบบ</CardTitle>
         <CardDescription>

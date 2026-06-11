@@ -60,7 +60,7 @@ export default function RegisterForm() {
 
   return (
   <div className="min-h-screen flex items-center justify-center bg-background px-4">
-    <Card variant="elevated" className="w-full sm:max-w-md">
+    <Card className="w-full sm:max-w-md">
       <CardHeader>
         <CardTitle>สมัครสมาชิก</CardTitle>
         <CardDescription>
